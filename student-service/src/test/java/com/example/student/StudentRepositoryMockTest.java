@@ -22,7 +22,7 @@ public class StudentRepositoryMockTest {
     public void whenFindById_thenReturnListStudent() {
         Student student01 = Student.builder()
                 .name("Ariana")
-                .email("ariana_medina").build();
+                .email("ariana@gmail.com").build();
         studentRepository.save(student01);
 
         Optional<Student> founds = studentRepository.findById(3L);
