@@ -16,13 +16,15 @@ import java.util.Date;
 public class Course {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+    @Column(name = "nameinstitute")
     private String nameInstitute;
+    @Column(name = "numhours")
     private int numHours;
+    @Column(name = "editioncourse")
     private String editionCourse;
     private String instructor;
     private double cost;
-    //@Column(name= "date")
-    @Temporal(TemporalType.DATE)
-    private Date date = new Date();
+    private Date date;
 }
