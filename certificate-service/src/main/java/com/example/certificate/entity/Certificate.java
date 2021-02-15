@@ -1,5 +1,7 @@
 package com.example.certificate.entity;
 
+import com.example.certificate.model.Course;
+import com.example.certificate.model.Student;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +20,14 @@ public class Certificate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "course_id")
-    private Long course;
+    private Long courseId;
     @Column(name = "student_id")
-    private Long student;
+    private Long studentId;
     private String status;
+
+    @Transient
+    private Student student;
+
+    @Transient
+    private Course course;
 }
