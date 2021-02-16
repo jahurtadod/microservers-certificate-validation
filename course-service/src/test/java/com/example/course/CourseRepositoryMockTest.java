@@ -32,7 +32,7 @@ public class CourseRepositoryMockTest {
                 .date(new Date()).build();
         courseRepository.save(course01);
 
-        Optional<Course> founds = courseRepository.findById(2L);
+        Optional<Course> founds = Optional.ofNullable(courseRepository.findByName(course01.getName()));
 
         assertFalse(founds.isEmpty());
 
