@@ -3,6 +3,7 @@ package com.example.course.controller;
 import com.example.course.entity.Course;
 import com.example.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Slf4j
@@ -32,17 +33,14 @@ public class CourseController {
     }
     //-------------------------TODOS LOS CURSOS-------------------------
     @GetMapping
-    public ResponseEntity<List<Course>> findCourseAll (@RequestParam(name = "Design UI", required = false) String name){
-        List<Course> courses = new ArrayList<>();
-        if (null == name) {
-            courses = courseService.findCourseAll();
-            if (courses.isEmpty()) {
-                return ResponseEntity.noContent().build();
-            }
-        }
-            return ResponseEntity.ok(courses);
-    }
+    public ResponseEntity<List<Course>> findCourseAll (){
+        List<Course> courses = courseService.findCourseAll();
 
+        if (courses.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(courses);
+    }
+    //-------------------------POR NOMBRE-------------------------
     @GetMapping(value = "/search")
     public ResponseEntity<Course> getCourseBy(@RequestParam(name = "name", required = false) String name){
         log.info("Buscando curso especcífico");
@@ -57,5 +55,21 @@ public class CourseController {
         }
         return ResponseEntity.ok(course);
     }
+    //-------------------------CREAR-------------------------
+    @PostMapping
+    public ResponseEntity<Course> createCourse(@RequestBody Course course){
+        Course courseCreate = courseService.createCourse(course);
+        return ResponseEntity.status(HttpStatus.CREATED).body(courseCreate);
+    }
 
+    //-------------------------MODIFICAR-------------------------
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<Course> updateCourse(@PathVariable("id") Long id, @RequestBody Course course){
+        course.setId(id);
+        Course courseUpdate = courseService.updateCourse(course);
+        if (courseUpdate == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(course);
+    }
 }

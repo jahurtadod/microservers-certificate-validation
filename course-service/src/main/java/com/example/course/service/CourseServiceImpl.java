@@ -36,12 +36,12 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public Course createCourse(@NonNull Course course) {
 
-        course.setName("Programacion");
-        course.setEditionCourse("2da Edicion");
-        course.setInstructor("Leor Ortiz");
-        course.setNameInstitute("UTPL");
-        course.setNumHours(60);
-        course.setCost(200.89);
+        course.setName(course.getName());
+        course.setEditionCourse(course.getEditionCourse());
+        course.setInstructor(course.getInstructor());
+        course.setNameInstitute(course.getNameInstitute());
+        course.setNumHours(course.getNumHours());
+        course.setCost(course.getCost());
         course.setDate(new Date());
         return courseRepository.save(course);
     }
